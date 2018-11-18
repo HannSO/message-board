@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/HannSO/message-board/issues"
   },
-  "homepage": "https://github.com/HannSO/message-board#readme"
+  "homepage": "https://github.com/HannSO/message-board#readme",
+  "devDependencies": {
+    "eslint": "^5.9.0"
+  }
 }
