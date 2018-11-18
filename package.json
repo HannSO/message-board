@@ -1,0 +1,19 @@
+{
+  "name": "message-board",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HannSO/message-board.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HannSO/message-board/issues"
+  },
+  "homepage": "https://github.com/HannSO/message-board#readme"
+}
