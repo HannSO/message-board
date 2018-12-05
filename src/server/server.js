@@ -1,15 +1,17 @@
 const http = require('http');
+const defaultRepository = require('./repository.js');
 const hostname = '127.0.0.1';
 const port = '3000';
 
-const server = (repository = {}) => {
+
+const serverApp = (repository = defaultRepository) => {
 
   http.createServer((req, res) => {
 
     if (req.url === '/messages' && req.method === 'GET') {
       res.writeHead(200, {'Content-Type': 'application/json'});
 
-      res.end(JSON.stringify(repository));
+      res.end(JSON.stringify(repository.getMessages()));
     }
     if (req.url === '/message' && req.method === 'POST') {
       res.writeHead(200, {'Content-Type': 'application/json'});
@@ -24,11 +26,9 @@ const server = (repository = {}) => {
         const parsedBody = JSON.parse(body);
 
         const messageBody = parsedBody.message;
-        const messageId = Object.keys(repository).length + 1;
+        const savedMessage = repository.saveToRepository(messageBody);
 
-        repository = {...repository, ...{[messageId]: messageBody}};
-
-        const jsonifiedObject = JSON.stringify({[messageId]: messageBody});
+        const jsonifiedObject = JSON.stringify(savedMessage);
         res.end(jsonifiedObject);
       });
     }
@@ -41,4 +41,4 @@ const server = (repository = {}) => {
 };
 
 
-module.exports = server;
+module.exports = serverApp;

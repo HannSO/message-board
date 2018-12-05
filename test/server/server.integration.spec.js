@@ -4,10 +4,14 @@ const describe = require('mocha').describe;
 const it = require('mocha').it;
 const expect = require('chai').expect;
 const server = require('../../src/server/server');
+const repository = require('../../src/server/repository');
 
 
 describe('server', () => {
-  server({messageOne: 'Super interesting', messageTwo: 'Top secret!'});
+  repository.saveToRepository('Super interesting');
+  repository.saveToRepository('Top secret!');
+
+  server(repository);
   chai.use(chaiHttp);
 
 
@@ -18,7 +22,7 @@ describe('server', () => {
         if (err) {
           expect(false);
         }
-        expect(res.body).to.deep.equal({messageOne: 'Super interesting', messageTwo: 'Top secret!'});
+        expect(res.body).to.deep.equal({1: 'Super interesting', 2: 'Top secret!'});
         expect(res).to.have.status(200);
         done();
       });
