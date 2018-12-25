@@ -7,6 +7,10 @@ const saveToRepository = (messageBody) => {
   return message;
 };
 
+const flushMessages = () => {
+  messages = {};
+};
+
 const getMessages = () => {
   return messages;
 };
@@ -16,5 +20,4 @@ const getNewMessageId = () => {
 };
 
 
-module.exports = {saveToRepository, getMessages};
-// module.exports = getMessages();
+module.exports = {saveToRepository, getMessages, flushMessages};
