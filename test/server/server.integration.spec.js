@@ -5,7 +5,7 @@ const before = require('mocha').before;
 const afterEach = require('mocha').afterEach;
 const it = require('mocha').it;
 const expect = require('chai').expect;
-const server = require('../../src/server/server');
+const server = require('../../src/server/server').serverApp;
 const repository = require('../../src/server/repository');
 
 

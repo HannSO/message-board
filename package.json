@@ -4,7 +4,10 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "mocha --recursive test/"
+    "start": "npm run bundle-js && npm run startServer",
+    "test": "mocha --recursive test/",
+    "bundle-js": "browserify src/public/app.js -o src/public/bundle.js",
+    "startServer": "node src/server/startServer.js"
   },
   "repository": {
     "type": "git",
@@ -18,10 +21,12 @@
   "homepage": "https://github.com/HannSO/message-board#readme",
   "devDependencies": {
     "chai": "^4.2.0",
+    "chai-http": "^4.2.0",
     "eslint": "^5.9.0",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "selenium-webdriver": "^4.0.0-alpha.1"
   },
   "dependencies": {
-    "chai-http": "^4.2.0"
+    "browserify": "^16.2.3"
   }
 }

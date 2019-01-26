@@ -7,8 +7,7 @@ const port = '3000';
 const serverApp = (repository = defaultRepository) => {
 
   http.createServer((req, res) => {
-
-    if (req.url === '/messages' && req.method === 'GET') {
+    if (req.url === '/messages' && req.method === 'GET' ) {
       res.writeHead(200, {'Content-Type': 'application/json'});
 
       res.end(JSON.stringify(repository.getMessages()));
@@ -40,5 +39,4 @@ const serverApp = (repository = defaultRepository) => {
 
 };
 
-
-module.exports = serverApp;
+module.exports = {serverApp};
