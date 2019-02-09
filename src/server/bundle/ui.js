@@ -1,14 +1,15 @@
-const createSubmitButtonListener = (request) => {
+const createSubmitButtonListener = (postMessage) => {
   const submitButton = document.getElementById('submit_message');
   submitButton.addEventListener('click', () => {
-    const userInput = document.getElementById('message_box').textContent;
-    request(userInput);
+    const userInput = document.getElementById('message_box').value;
+    postMessage(userInput);
     document.getElementById('message_box').value = '';
+
   });
 };
 
-const displayMessages = (getMessages) => {
-  getMessages(_buildHtml);
+const displayMessages = (messages) => {
+  _buildHtml(messages);
 };
 
 const _buildHtml = (messages) => {
@@ -28,7 +29,10 @@ const _buildElementsForOneMessage = (messageIdAndBody) => {
 };
 
 const _clearMessages = () => {
-  document.getElementById('all_messages').clear();
+  const allMessages = document.getElementById('all_messages');
+  while (allMessages.firstChild) {
+    allMessages.removeChild(allMessages.firstChild);
+  }
 };
 
 module.exports = {createSubmitButtonListener, displayMessages};

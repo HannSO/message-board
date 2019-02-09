@@ -22,5 +22,4 @@ describe('repository', () => {
     expect(repository.getMessages()).to.deep.equal(expectedMessages);
   });
 
-
 });

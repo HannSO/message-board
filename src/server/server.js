@@ -1,17 +1,33 @@
+/* eslint-disable no-console */
 const http = require('http');
-const defaultRepository = require('./repository.js');
 const hostname = '127.0.0.1';
 const port = '3000';
-
+const fs = require('fs');
+const defaultRepository = require('./repository');
 
 const serverApp = (repository = defaultRepository) => {
+  createServer(repository);
+};
 
+
+const createServer = (repository) => {
   http.createServer((req, res) => {
-    if (req.url === '/messages' && req.method === 'GET' ) {
-      res.writeHead(200, {'Content-Type': 'application/json'});
+    if (req.url === '/' && req.method === 'GET') {
 
+      fs.readFile('/Users/hannahsmyth-osbourne/Projects/message-board/src/server/index.html', (err, html) => {
+        if (err) {
+          console.log('error getting html, will not start server: ' + err.message);
+        }
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        res.end(html);
+      });
+    }
+
+    if (req.url === '/messages' && req.method === 'GET') {
+      res.writeHead(200, {'Content-Type': 'application/json'});
       res.end(JSON.stringify(repository.getMessages()));
     }
+
     if (req.url === '/message' && req.method === 'POST') {
       res.writeHead(200, {'Content-Type': 'application/json'});
 
@@ -32,11 +48,24 @@ const serverApp = (repository = defaultRepository) => {
       });
     }
 
+    if (req.url === '/bundle' && req.method === 'GET') {
+
+      fs.readFile('/Users/hannahsmyth-osbourne/Projects/message-board/src/server/bundle/bundle.js', (err, bundle) => {
+        if (err) {
+          console.log('error getting bundle, will not start server: ' + err.message);
+        }
+        res.writeHead(200, {'Content-Type': 'text/javascript'});
+        res.end(bundle);
+      });
+    }
+
   }).listen(port, hostname, () => {
-    // eslint-disable-next-line no-console
     console.log(`Serving running at http://${hostname}:${port}/`);
   });
-
 };
 
-module.exports = {serverApp};
+
+
+
+
+module.exports = {serverApp, createServer};

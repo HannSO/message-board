@@ -6,7 +6,8 @@ const postMessage = require('./requests').postMessage;
 const doEveryThing = () => {
   createSubmitButtonListener(postMessage);
   displayMessages(getMessages);
-  getMessages(displayMessages);
+  const messages = getMessages();
+  displayMessages(messages);
 };
 
 doEveryThing();

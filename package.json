@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run bundle-js && npm run startServer",
     "test": "mocha --recursive test/",
-    "bundle-js": "browserify src/public/app.js -o src/public/bundle.js",
+    "bundle-js": "browserify src/server/bundle/app.js -o src/server/bundle/bundle.js",
     "startServer": "node src/server/startServer.js"
   },
   "repository": {

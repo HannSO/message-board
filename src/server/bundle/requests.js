@@ -5,9 +5,10 @@ const postMessage = (message) => {
   const postUrl = BASE_URL + '/message';
 
   const postBody = {message: message};
+
   fetch(postUrl, {
     method: 'POST',
-    body: postBody,
+    body: JSON.stringify(postBody),
 
     headers: {
       'Content-Type': 'application/json',
@@ -19,7 +20,7 @@ const postMessage = (message) => {
     });
 };
 
-const getMessages = (doStuffWithmessages) => {
+const getMessages = () => {
   const getUrl = BASE_URL + '/messages';
   return fetch(getUrl, {
     method: 'GET',
@@ -28,7 +29,7 @@ const getMessages = (doStuffWithmessages) => {
     }
   }).then((response) => {
     if (200 < response.status < 300) {
-      doStuffWithmessages(response);
+      return response.body;
     } else {
       log(`${getUrl} returned status: ${response.status}, body: ${response.body}, error: ${response.error}`);
     }
