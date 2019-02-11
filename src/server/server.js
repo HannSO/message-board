@@ -5,16 +5,19 @@ const port = '3000';
 const fs = require('fs');
 const defaultRepository = require('./repository');
 
+const PROJECT_PATH = process.cwd();
+const BUNDLE_PATH = PROJECT_PATH + '/src/server/bundle/bundle.js';
+const INDEX_PATH = PROJECT_PATH + '/src/server/index.html';
+
 const serverApp = (repository = defaultRepository) => {
   createServer(repository);
 };
-
 
 const createServer = (repository) => {
   http.createServer((req, res) => {
     if (req.url === '/' && req.method === 'GET') {
 
-      fs.readFile('/Users/hannahsmyth-osbourne/Projects/message-board/src/server/index.html', (err, html) => {
+      fs.readFile(INDEX_PATH, (err, html) => {
         if (err) {
           console.log('error getting html, will not start server: ' + err.message);
         }
@@ -50,7 +53,7 @@ const createServer = (repository) => {
 
     if (req.url === '/bundle' && req.method === 'GET') {
 
-      fs.readFile('/Users/hannahsmyth-osbourne/Projects/message-board/src/server/bundle/bundle.js', (err, bundle) => {
+      fs.readFile(BUNDLE_PATH, (err, bundle) => {
         if (err) {
           console.log('error getting bundle, will not start server: ' + err.message);
         }
@@ -63,9 +66,5 @@ const createServer = (repository) => {
     console.log(`Serving running at http://${hostname}:${port}/`);
   });
 };
-
-
-
-
 
 module.exports = {serverApp, createServer};
