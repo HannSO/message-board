@@ -21,10 +21,12 @@ const _buildHtml = (messages) => {
 
 const _buildElementsForOneMessage = (messageIdAndBody) => {
   const messageBody = messageIdAndBody[1];
+  const messageId = messageIdAndBody[0];
   const line = document.createElement('li');
 
   const messageElement = document.createElement('p');
   messageElement.innerHTML = messageBody;
+  line.setAttribute('id', messageId);
 
   line.appendChild(messageElement);
   document.getElementById('all_messages').appendChild(line);
