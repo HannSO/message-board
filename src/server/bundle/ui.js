@@ -1,8 +1,10 @@
-const createSubmitButtonListener = (postMessage) => {
+const createSubmitButtonListener = (postMessage, getMessages) => {
   const submitButton = document.getElementById('submit_message');
   submitButton.addEventListener('click', () => {
     const userInput = document.getElementById('message_box').value;
-    postMessage(userInput);
+    postMessage(userInput)
+      .then(() => getMessages())
+      .then((messages) => displayMessages(messages));
     document.getElementById('message_box').value = '';
 
   });
@@ -18,11 +20,11 @@ const _buildHtml = (messages) => {
 };
 
 const _buildElementsForOneMessage = (messageIdAndBody) => {
-  const messageBody = messageIdAndBody.get(1);
+  const messageBody = messageIdAndBody[1];
   const line = document.createElement('li');
 
   const messageElement = document.createElement('p');
-  messageElement.text(messageBody);
+  messageElement.innerHTML = messageBody;
 
   line.appendChild(messageElement);
   document.getElementById('all_messages').appendChild(line);

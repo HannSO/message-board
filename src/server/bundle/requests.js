@@ -6,7 +6,7 @@ const postMessage = (message) => {
 
   const postBody = {message: message};
 
-  fetch(postUrl, {
+  return fetch(postUrl, {
     method: 'POST',
     body: JSON.stringify(postBody),
 
@@ -14,7 +14,13 @@ const postMessage = (message) => {
       'Content-Type': 'application/json',
       'referrer-policy': 'no-referrer',
     }
-  }).then()
+  }).then((res) => {
+    if (isOk(res.status)) {
+      return res.body;
+    } else {
+      throw new Error();
+    }
+  })
     .catch((err) => {
       log(`error posting to ${postUrl}: ${err}`);
     });
@@ -28,13 +34,20 @@ const getMessages = () => {
       'Content-Type': 'application/json'
     }
   }).then((response) => {
-    if (200 < response.status < 300) {
-      return response.body;
+    if (isOk(response.status)) {
+      return (response.json());
     } else {
       log(`${getUrl} returned status: ${response.status}, body: ${response.body}, error: ${response.error}`);
+      throw new Error();
     }
   })
-    .catch((err) => log(`error getting ${getUrl}: ${err}`));
+    .catch((err) => {
+      log(`error getting ${getUrl}: ${err}`);
+    });
+};
+
+const isOk = (responseStatus) => {
+  return 200 < responseStatus < 300;
 };
 
 module.exports = {postMessage, getMessages};

@@ -4,10 +4,11 @@ const getMessages = require('./requests').getMessages;
 const postMessage = require('./requests').postMessage;
 
 const doEveryThing = () => {
-  createSubmitButtonListener(postMessage);
+  createSubmitButtonListener(postMessage, getMessages);
   displayMessages(getMessages);
-  const messages = getMessages();
-  displayMessages(messages);
+  getMessages().then((messages) => {
+    displayMessages(messages);
+  });
 };
 
 doEveryThing();
