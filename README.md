@@ -10,7 +10,7 @@ As a user, so I can save milliseconds of my time, I want to be able to:
 > post messages  ✔ 
 > see them appear ✔ 
 > edit them
-> and delete them.
+> and delete them. ✔
 All without reloading or refreshing the page (also should be stored to view at a later date).
 ``` 
 
