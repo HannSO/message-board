@@ -46,8 +46,29 @@ const getMessages = () => {
     });
 };
 
+const deleteMessage = (messageId) => {
+  const deleteUrl = BASE_URL + '/message/' + messageId;
+
+  return fetch(deleteUrl, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'referrer-policy': 'no-referrer',
+    }
+  }).then((res) => {
+    if (isOk(res.status)) {
+      return res.body;
+    } else {
+      throw new Error();
+    }
+  })
+    .catch((err) => {
+      log(`error posting to ${deleteUrl}: ${err}`);
+    });
+};
+
 const isOk = (responseStatus) => {
   return 200 < responseStatus < 300;
 };
 
-module.exports = {postMessage, getMessages};
+module.exports = {postMessage, getMessages, deleteMessage};

@@ -1,4 +1,8 @@
-const createSubmitButtonListener = (postMessage, getMessages) => {
+const getMessages = require('./requests').getMessages;
+const postMessage = require('./requests').postMessage;
+const deleteMessage = require('./requests').deleteMessage;
+
+const createSubmitButtonListener = () => {
   const submitButton = document.getElementById('submit_message');
   submitButton.addEventListener('click', () => {
     const userInput = document.getElementById('message_box').value;
@@ -7,6 +11,14 @@ const createSubmitButtonListener = (postMessage, getMessages) => {
       .then((messages) => displayMessages(messages));
     document.getElementById('message_box').value = '';
 
+  });
+};
+
+const createDeleteButtonListener = (deleteButton) => {
+  deleteButton.addEventListener('click', () => {
+    deleteMessage(deleteButton.id)
+      .then(() => getMessages())
+      .then((messages) => displayMessages(messages));
   });
 };
 
@@ -26,9 +38,15 @@ const _buildElementsForOneMessage = (messageIdAndBody) => {
 
   const messageElement = document.createElement('p');
   messageElement.innerHTML = messageBody;
-  line.setAttribute('id', messageId);
 
+  const deleteButton = document.createElement('BUTTON');
+  deleteButton.setAttribute('id', messageId);
+  deleteButton.innerHTML = 'Remove Message';
+  createDeleteButtonListener(deleteButton, deleteMessage);
+
+  line.setAttribute('id', messageId);
   line.appendChild(messageElement);
+  line.appendChild(deleteButton);
   document.getElementById('all_messages').appendChild(line);
 };
 

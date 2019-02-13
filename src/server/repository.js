@@ -19,5 +19,8 @@ const getNewMessageId = () => {
   return Object.keys(messages).length + 1;
 };
 
+const deleteMessage = (messageId) => {
+  return delete messages[messageId];
+};
 
-module.exports = {saveToRepository, getMessages, flushMessages};
+module.exports = {saveToRepository, getMessages, flushMessages, deleteMessage};

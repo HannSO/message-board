@@ -31,6 +31,18 @@ const createServer = (repository) => {
       res.end(JSON.stringify(repository.getMessages()));
     }
 
+    if (req.url.startsWith('/message') && req.method === 'DELETE') {
+      const messageId = req.url.split('/')[2];
+
+      if (repository.deleteMessage(messageId)) {
+        res.writeHead(200, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify(messageId));
+      } else {
+        res.writeHead(400, {'Content-Type': 'application/json'});
+        res.end();
+      }
+    }
+
     if (req.url === '/message' && req.method === 'POST') {
       res.writeHead(200, {'Content-Type': 'application/json'});
 
